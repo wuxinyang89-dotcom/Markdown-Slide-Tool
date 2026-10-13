@@ -1,0 +1,352 @@
+/* @theme nord */
+
+@import 'default';
+
+/* ============================================================
+   主题 nord · 冷静极简
+   ------------------------------------------------------------
+   冷灰蓝、大留白、扁平无渐变、柔和圆角。
+   标题字重更轻；h2 下只用一条通栏细线，整体安静克制。
+
+   适合：技术汇报、产品评审、数据说明、需要"不抢戏"的场合
+   ============================================================ */
+
+section {
+  --accent: #5e81ac;
+  --accent-2: #88c0d0;
+  --accent-soft: #eef4f9;
+  --accent-ink: #3b5b7d;
+  --ink: #2e3440;
+  --muted: #7b8794;
+  --line: #e3e9ef;
+
+  /* 表格斑马纹由内置主题的 var(--bgColor-muted) 控制，其选择器带 id，
+     特异性极高，普通选择器覆盖不了 —— 只能重定义变量。 */
+  --bgColor-muted: #f4f7fa;
+
+  width: 1280px;
+  height: 720px;
+  padding: 76px 84px 84px;
+
+  background: #fcfdfe;
+  color: var(--ink);
+
+  font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue",
+    "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-size: 27px;
+  line-height: 1.68;
+  letter-spacing: 0.1px;
+}
+
+/* ---------- 标题：字重更轻、留白更多 ---------- */
+h1, h2, h3, h4 {
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 0.5em;
+}
+h1 { font-size: 48px; }
+h2 { font-size: 36px; }
+h3 { font-size: 28px; }
+h4 { font-size: 23px; font-weight: 600; color: var(--muted); }
+
+/* h2 下方：一条通栏细线 */
+h2::after {
+  content: "";
+  display: block;
+  height: 1px;
+  margin-top: 18px;
+  background: var(--line);
+}
+
+/* ---------- 正文 ---------- */
+p { margin: 0.4em 0; }
+strong { color: var(--accent-ink); font-weight: 700; }
+em { color: var(--muted); }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-2);
+}
+
+ul, ol { margin: 0.4em 0 0.4em 1.15em; padding: 0; }
+li { margin: 0.3em 0; }
+li::marker { color: var(--accent-2); }
+
+/* ---------- 代码 ---------- */
+code {
+  font-family: "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+  font-size: 0.84em;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  padding: 0.1em 0.38em;
+  border-radius: 6px;
+}
+
+pre {
+  background: #f4f7fa;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 22px 26px;
+  box-shadow: none;
+}
+pre code {
+  background: transparent;
+  color: #33465c;
+  font-size: 0.78em;
+  line-height: 1.55;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* ---------- 表格：无竖线，只有淡横线 ---------- */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.78em;
+  margin: 0.5em 0;
+}
+th, td { border: none; padding: 12px 16px; text-align: left; }
+th {
+  background: transparent;
+  color: var(--accent-ink);
+  font-weight: 700;
+  border-bottom: 1px solid #cdd8e3;
+}
+tbody td { border-bottom: 1px solid var(--line); }
+/* 偶数行斑马纹的颜色由 --bgColor-muted 决定，见文件开头的变量区 */
+
+/* ---------- 引用 ---------- */
+blockquote {
+  margin: 0.55em 0;
+  padding: 18px 24px;
+  border-left: 3px solid var(--accent-2);
+  background: var(--accent-soft);
+  border-radius: 0 12px 12px 0;
+  color: #3d4c5e;
+}
+blockquote p { margin: 0; }
+
+/* ---------- 分栏布局 ---------- */
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-top: 0.4em;
+}
+.columns > * { min-width: 0; }
+
+/* ---------- 封面页：浅色、居中、安静 ---------- */
+section.lead {
+  background: linear-gradient(180deg, #f9fbfd 0%, #e9f0f7 100%);
+  color: var(--ink);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+section.lead h1 { font-size: 60px; font-weight: 600; }
+section.lead h2 { font-size: 27px; font-weight: 400; color: var(--muted); }
+section.lead h2::after { display: none; }
+section.lead p { color: var(--muted); }
+section.lead strong { color: var(--accent-ink); }
+
+/* ---------- 章节分隔页 ---------- */
+section.divider {
+  background: #eaf1f7;
+  color: var(--ink);
+  justify-content: center;
+}
+section.divider h1 { color: var(--ink); }
+section.divider h2 { color: var(--muted); font-weight: 400; }
+section.divider h2::after { display: none; }
+
+/* ---------- 页眉 / 页脚 / 页码 ---------- */
+header { font-size: 17px; color: var(--muted); top: 28px; }
+footer { font-size: 16px; color: var(--muted); bottom: 24px; }
+section::after {
+  right: 48px;
+  bottom: 20px;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+section.lead header,
+section.lead footer,
+section.lead::after,
+section.divider header,
+section.divider footer { display: none; }
+section.divider::after { color: var(--muted); }
+
+/* ---------- 小工具类 ---------- */
+.badge {
+  display: inline-block;
+  margin: 4px 6px 0 0;
+  padding: 4px 16px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  color: var(--accent-ink);
+  font-size: 17px;
+  font-weight: 600;
+}
+.center { text-align: center; }
+.muted { color: var(--muted); }
+
+/* ============================================================
+   数据展示组件（类名与其它主题保持一致）
+   ============================================================ */
+
+/* ---------- 时间轴 ---------- */
+.timeline { margin-top: 6px; }
+.tl-item {
+  display: grid;
+  grid-template-columns: 148px 1fr;
+  gap: 18px;
+  align-items: start;
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--line);
+  font-size: 19px;
+  line-height: 1.45;
+}
+.tl-item:last-child { border-bottom: none; }
+.tl-date {
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.tl-body { color: var(--ink); }
+.tl-body b { color: var(--ink); }
+.tl-item.is-alert {
+  background: #fdf2f2;
+  border-radius: 10px;
+  border-bottom-color: transparent;
+}
+.tl-item.is-alert .tl-date,
+.tl-item.is-alert .tl-body { color: #b04a4a; }
+
+/* ---------- 条形图：胶囊造型、实色填充 ---------- */
+.bars { margin-top: 12px; }
+.bar-row { margin: 15px 0; }
+.bar-label {
+  display: block;
+  font-size: 18px;
+  color: var(--muted);
+  margin-bottom: 7px;
+  line-height: 1.4;
+}
+.bar-line { display: flex; align-items: center; gap: 14px; }
+.bar-track {
+  flex: 1;
+  height: 26px;
+  background: #eef2f6;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+}
+.bar-fill.is-warn { background: #cf6b6b; }
+.bar-fill.is-mute { background: #bcc9d6; }
+.bar-val {
+  width: 116px;
+  text-align: right;
+  font-weight: 700;
+  font-size: 21px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.bar-src {
+  margin: 12px 0 0;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ---------- 卡片网格：无边框、淡色底 ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 14px;
+}
+.cards-2 { grid-template-columns: repeat(2, 1fr); }
+.card {
+  border: none;
+  border-radius: 14px;
+  padding: 20px 22px;
+  background: #f4f8fb;
+}
+.card h4 {
+  margin: 0 0 8px;
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--accent-ink);
+}
+.card p { margin: 0; font-size: 17px; line-height: 1.5; color: var(--ink); }
+.card .card-note { margin-top: 8px; font-size: 16px; color: var(--muted); }
+
+/* ---------- 左右对比 ---------- */
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+  margin-top: 10px;
+}
+.compare > div { border-radius: 14px; padding: 20px 24px; }
+.cmp-a { background: var(--accent-soft); border: none; }
+.cmp-b { background: #fdf3f3; border: none; }
+.compare h3 { margin: 0 0 10px; font-size: 22px; }
+.compare p { margin: 0.4em 0; font-size: 17px; line-height: 1.5; }
+
+/* ---------- 统计数字 ---------- */
+.stat {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--accent);
+}
+.cmp-b .stat { color: #c0605f; }
+.stat-unit {
+  margin-left: 6px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* ---------- 大字提问：圆角块，去掉左侧竖条 ---------- */
+.big-q {
+  margin: 12px 0 24px;
+  padding: 24px 30px;
+  font-size: 31px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  border-left: none;
+  border-radius: 16px;
+}
+
+/* ---------- 参考文献 ---------- */
+.refs {
+  max-width: 1000px;
+  margin: 22px auto 0;
+  font-size: 16px;
+  line-height: 1.9;
+  text-align: left;
+  color: var(--muted);
+}
+.refs b { color: var(--accent-ink); }
+
+/* ---------- 紧凑版式 ---------- */
+section.compact li { margin: 0.2em 0; }
+section.compact table { font-size: 0.7em; }
+section.compact th,
+section.compact td { padding: 8px 12px; }
+section.compact .bar-src { margin-top: 8px; }
+section.compact h2::after { margin-top: 12px; }

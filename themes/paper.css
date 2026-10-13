@@ -1,0 +1,372 @@
+/* @theme paper */
+
+@import 'default';
+
+/* ============================================================
+   主题 paper · 学术纸感
+   ------------------------------------------------------------
+   暖白纸底 + 衬线字体 + 砖红点缀 + 细线分隔，印刷物气质。
+   图表尽量"去装饰"：无圆角、无阴影、条形用实色、卡片只用顶边线。
+
+   适合：人文社科、论文汇报、正式的课堂展示
+   ============================================================ */
+
+section {
+  --accent: #9c3b2c;
+  --accent-2: #c47a4e;
+  --accent-soft: #f4ece1;
+  --accent-ink: #7a2b1f;
+  --ink: #221f1b;
+  --muted: #7d7369;
+  --line: #ded3c4;
+  --paper: #fbf8f2;
+
+  /* 表格斑马纹由内置主题的 var(--bgColor-muted) 控制，其选择器带 id，
+     特异性极高，普通选择器覆盖不了 —— 只能重定义变量。
+     paper 走 booktabs 风格，不要斑马纹，所以设为透明。 */
+  --bgColor-muted: transparent;
+
+  width: 1280px;
+  height: 720px;
+  padding: 70px 78px 78px;
+
+  background: var(--paper);
+  color: var(--ink);
+
+  font-family: Georgia, "Times New Roman", "Songti SC", "SimSun",
+    "Noto Serif SC", serif;
+  font-size: 27px;
+  line-height: 1.62;
+  letter-spacing: 0.1px;
+}
+
+/* ---------- 标题 ---------- */
+h1, h2, h3, h4 {
+  color: var(--ink);
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0 0 0.46em;
+}
+h1 { font-size: 50px; }
+h2 { font-size: 38px; }
+h3 { font-size: 29px; }
+h4 { font-size: 24px; color: var(--accent); font-style: italic; }
+
+/* h2 下方：细双线，像论文的章节标题 */
+h2::after {
+  content: "";
+  display: block;
+  margin-top: 16px;
+  border-top: 3px double var(--line);
+}
+
+/* ---------- 正文 ---------- */
+p { margin: 0.4em 0; }
+strong { color: var(--accent); font-weight: 700; }
+em { color: var(--muted); font-style: italic; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-2);
+}
+
+ul, ol { margin: 0.4em 0 0.4em 1.15em; padding: 0; }
+li { margin: 0.26em 0; }
+li::marker { color: var(--accent-2); }
+
+/* ---------- 代码（改用无衬线，与正文拉开对比） ---------- */
+code {
+  font-family: "Cascadia Code", Consolas, "Courier New", monospace;
+  font-size: 0.84em;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  padding: 0.08em 0.36em;
+  border-radius: 3px;
+}
+
+pre {
+  background: #f6f1e8;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 0;
+  padding: 20px 24px;
+  box-shadow: none;
+}
+pre code {
+  background: transparent;
+  color: #2f2a24;
+  font-size: 0.78em;
+  line-height: 1.5;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* ---------- 表格：booktabs 风格，只保留横线 ---------- */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.78em;
+  margin: 0.5em 0;
+  font-family: "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+}
+th, td { border: none; padding: 11px 14px; text-align: left; }
+thead th {
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font-weight: 700;
+}
+tbody td { border-bottom: 1px solid var(--line); }
+tbody tr:last-child td { border-bottom: 2px solid var(--ink); }
+
+/* ---------- 引用 ---------- */
+blockquote {
+  margin: 0.6em 0;
+  padding: 4px 0 4px 26px;
+  border-left: 3px solid var(--accent-2);
+  background: transparent;
+  border-radius: 0;
+  color: #4a423a;
+  font-style: italic;
+}
+blockquote p { margin: 0; }
+
+/* ---------- 分栏布局 ---------- */
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 46px;
+  align-items: start;
+  margin-top: 0.35em;
+}
+.columns > * { min-width: 0; }
+
+/* ---------- 封面页：左对齐、大衬线标题、顶部双线 ---------- */
+section.lead {
+  background: var(--paper);
+  color: var(--ink);
+  justify-content: center;
+}
+section.lead h1 { font-size: 62px; line-height: 1.18; }
+section.lead h1::before {
+  content: "";
+  display: block;
+  width: 120px;
+  margin-bottom: 26px;
+  border-top: 6px double var(--accent);
+}
+section.lead h2 {
+  font-size: 28px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--muted);
+}
+section.lead h2::after { display: none; }
+section.lead p { color: var(--muted); }
+section.lead strong { color: var(--accent); }
+
+/* ---------- 章节分隔页 ---------- */
+section.divider {
+  background: #f3ece1;
+  color: var(--ink);
+  justify-content: center;
+}
+section.divider h1 { color: var(--ink); font-size: 46px; }
+section.divider h2 { color: var(--muted); font-weight: 400; font-style: italic; }
+section.divider h2::after { display: none; }
+
+/* ---------- 页眉 / 页脚 / 页码 ---------- */
+header { font-size: 17px; color: var(--muted); top: 26px; font-style: italic; }
+footer { font-size: 16px; color: var(--muted); bottom: 24px; font-style: italic; }
+section::after {
+  right: 46px;
+  bottom: 18px;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+section.lead header,
+section.lead footer,
+section.lead::after,
+section.divider header,
+section.divider footer { display: none; }
+section.divider::after { color: var(--muted); }
+
+/* ---------- 小工具类 ---------- */
+.badge {
+  display: inline-block;
+  margin: 4px 6px 0 0;
+  padding: 3px 14px;
+  border-radius: 2px;
+  background: transparent;
+  border: 1px solid var(--accent-2);
+  color: var(--accent);
+  font-size: 17px;
+  font-weight: 600;
+}
+.center { text-align: center; }
+.muted { color: var(--muted); }
+
+/* ============================================================
+   数据展示组件（类名与其它主题保持一致）
+   ============================================================ */
+
+/* ---------- 时间轴 ---------- */
+.timeline { margin-top: 6px; }
+.tl-item {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 9px 4px;
+  border-bottom: 1px solid var(--line);
+  font-size: 19px;
+  line-height: 1.4;
+}
+.tl-item:last-child { border-bottom: none; }
+.tl-date {
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.tl-body { color: var(--ink); }
+.tl-body b { color: var(--ink); }
+.tl-item.is-alert {
+  background: transparent;
+  border-radius: 0;
+  border-bottom-color: var(--line);
+}
+.tl-item.is-alert .tl-date { color: #b3261e; }
+.tl-item.is-alert .tl-body { color: #b3261e; font-style: italic; }
+
+/* ---------- 条形图 ---------- */
+.bars { margin-top: 10px; }
+.bar-row { margin: 14px 0; }
+.bar-label {
+  display: block;
+  font-size: 18px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+.bar-line { display: flex; align-items: center; gap: 14px; }
+.bar-track {
+  flex: 1;
+  height: 24px;
+  background: #ece4d8;
+  border-radius: 0;
+  overflow: hidden;
+}
+.bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 0;
+  background: var(--accent);
+}
+.bar-fill.is-warn { background: #b3261e; }
+.bar-fill.is-mute { background: #b9ad9c; }
+.bar-val {
+  width: 116px;
+  text-align: right;
+  font-weight: 700;
+  font-size: 21px;
+  color: var(--ink);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.bar-src {
+  margin: 12px 0 0;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ---------- 卡片网格：只用顶边线，像分栏的正文 ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 14px;
+}
+.cards-2 { grid-template-columns: repeat(2, 1fr); }
+.card {
+  border: none;
+  border-top: 2px solid var(--accent);
+  border-radius: 0;
+  padding: 14px 2px 0;
+  background: transparent;
+}
+.card h4 {
+  margin: 0 0 8px;
+  font-size: 21px;
+  font-weight: 700;
+  font-style: normal;
+  color: var(--accent);
+}
+.card p { margin: 0; font-size: 17px; line-height: 1.5; color: var(--ink); }
+.card .card-note { margin-top: 8px; font-size: 16px; color: var(--muted); font-style: italic; }
+
+/* ---------- 左右对比 ---------- */
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 34px;
+  margin-top: 10px;
+}
+.compare > div { border-radius: 0; padding: 0; }
+.cmp-a { background: transparent; border: none; border-top: 2px solid var(--accent); padding-top: 14px; }
+.cmp-b { background: transparent; border: none; border-top: 2px solid #b3261e; padding-top: 14px; }
+.compare h3 { margin: 0 0 10px; font-size: 22px; }
+.compare p { margin: 0.4em 0; font-size: 17px; line-height: 1.5; }
+
+/* ---------- 统计数字 ---------- */
+.stat {
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--accent);
+}
+.cmp-b .stat { color: #b3261e; }
+.stat-unit {
+  margin-left: 6px;
+  font-size: 20px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* ---------- 大字提问 ---------- */
+.big-q {
+  margin: 12px 0 22px;
+  padding: 10px 0 10px 28px;
+  font-size: 32px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--ink);
+  background: transparent;
+  border-left: 4px solid var(--accent);
+  border-radius: 0;
+}
+
+/* ---------- 参考文献（用于深色封面页，故用浅色） ---------- */
+.refs {
+  max-width: 1020px;
+  margin: 22px auto 0;
+  font-size: 16px;
+  line-height: 1.85;
+  text-align: left;
+  color: var(--muted);
+}
+.refs b { color: var(--ink); }
+
+/* ---------- 紧凑版式 ---------- */
+section.compact li { margin: 0.18em 0; }
+section.compact table { font-size: 0.7em; }
+section.compact th,
+section.compact td { padding: 7px 12px; }
+section.compact .bar-src { margin-top: 8px; }
+section.compact h2::after { margin-top: 10px; }

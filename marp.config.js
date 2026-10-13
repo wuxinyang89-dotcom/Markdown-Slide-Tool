@@ -13,7 +13,15 @@ module.exports = {
   // 允许在 Markdown 中直接书写 HTML
   html: true,
   // 注册自定义主题文件
-  themeSet: ['themes/copilot.css'],
+  // 文件名即主题名，deck.md 里用 front-matter 的 theme: 选择
+  // copilot  默认蓝 · paper 学术纸感 · nord 冷静极简 · neon 暗色终端 · magazine 杂志编辑
+  themeSet: [
+    'themes/copilot.css',
+    'themes/paper.css',
+    'themes/nord.css',
+    'themes/neon.css',
+    'themes/magazine.css',
+  ],
   // 导出 PDF 时生成书签大纲
   pdfOutlines: true,
   // 若自动探测不到浏览器，可改为 'edge' 或 'chrome'

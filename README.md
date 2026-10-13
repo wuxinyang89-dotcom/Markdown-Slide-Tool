@@ -22,7 +22,8 @@
 
 | 特性 | 说明 |
 | :--- | :--- |
-| 📝 **内容与样式分离** | 内容在 `decks/`，样式统一在 `themes/copilot.css`，改一次全部生效 |
+| 🎨 **5 套现成主题** | 通用蓝 / 学术纸感 / 冷静极简 / 暗色终端 / 杂志编辑，换主题不动内容 |
+| 📝 **内容与样式分离** | 内容在 `decks/`，样式在 `themes/`，改一次全部生效 |
 | 📦 **多套管理** | 一套演示 = 一个文件夹，想加多少加多少 |
 | ✈️ **离线单文件** | 导出的 HTML 把样式与图片全内联进去，拷到任意电脑双击即放，**不联网、不装任何东西** |
 | 🔤 **中文友好** | 界面、路径、菜单全支持中文，菜单按 CJK 宽度对齐 |
@@ -202,7 +203,7 @@ npm install
 > 📌 命名建议用「**日期-主题**」（如 `2026-10-20-群体极化`）。
 > 好处：菜单里按日期自然排序，产物文件名一眼能对上，筛选时输入日期前缀即可。
 
-`templates/deck.md` 里有**全部组件的实际用法**，直接照抄改字就行。
+`templates/主题预览.md` 里有**全部组件的实际用法**，直接照抄改字就行。
 
 ---
 
@@ -217,11 +218,16 @@ PPT/
 │     └─ images/                ← 该套专属图片
 │
 ├─ templates/                   ← 新一套的复制模板
-│  ├─ deck.md                   ← 含全部组件用法示例
+│  ├─ deck.md                   ← 起步模板（复制它来新建一套）
+│  ├─ 主题预览.md               ← 全部组件用法 + 5 套主题对照
 │  └─ images/pipeline.svg
 │
-├─ themes/
-│  └─ copilot.css               ← 所有套共用的主题，改一次全部生效
+├─ themes/                      ← 5 套主题，改 front-matter 一行即可切换
+│  ├─ copilot.css               ←   默认 · 通用蓝
+│  ├─ paper.css                 ←   学术纸感
+│  ├─ nord.css                  ←   冷静极简
+│  ├─ neon.css                  ←   暗色终端
+│  └─ magazine.css              ←   杂志编辑
 │
 ├─ scripts/
 │  ├─ build.mjs                 ← 编排：扫描 / 菜单 / 批量构建
@@ -336,7 +342,38 @@ $$
 
 ## 改主题
 
-编辑 `themes/copilot.css` 顶部的 CSS 变量 —— **所有套同时生效**：
+主题文件都在 `themes/` 下。**换主题不需要改动任何内容** —— 只改 `deck.md` 顶部一行。
+
+### 现成的 5 套主题
+
+| 主题 | 气质 | 适合场合 | 特点 |
+| :--- | :--- | :--- | :--- |
+| `copilot` | 通用蓝（默认） | 大多数场合，最稳妥 | 深色渐变压面、圆角卡片、渐变条形图 |
+| `paper` | 学术纸感 | 人文社科、论文汇报 | 暖白纸底、衬线字体、砖红点缀、booktabs 表格 |
+| `nord` | 冷静极简 | 技术汇报、数据说明 | 冷灰蓝、大留白、扁平无渐变、胶囊条形图 |
+| `neon` | 暗色终端 | 技术分享、开源介绍 | 近黑底、霓虹青紫、等宽字体、纯 CSS 网格封面 |
+| `magazine` | 杂志编辑 | 演讲、路演、观点输出 | 超大粗体标题、纯黑封面、玫红色块、黑底表头 |
+
+切换方式 —— 打开 `decks/<名字>/deck.md`，改 front-matter 里的这一行：
+
+```yaml
+theme: nord      # 换成任意一个主题名即可
+```
+
+> 📖 **想直观比较？** 把 `templates/主题预览.md` 复制成一套演示，
+> 依次改 `theme:` 重新生成就能逐套对照。
+> 这份文件同时是**全部组件的用法参考**。
+
+### 五套主题共用同一套组件类
+
+这是刻意的设计：`.timeline` / `.bars` / `.cards` / `.compare` / `.stat` / `.big-q` /
+`.refs` / `.compact` 在各主题里**类名完全一致**，只是配色与造型不同。
+
+所以**换主题不需要动内容**，一份 `deck.md` 可以在 5 套主题间任意切换。
+
+### 改配色
+
+每套主题开头都有一个变量区，改这里即可整体换色（以 `copilot.css` 为例）：
 
 ```css
 section {
@@ -350,25 +387,52 @@ section {
 }
 ```
 
-字体刻意只用**系统字体**（`Segoe UI` / `Microsoft YaHei` / `PingFang SC` …），
+字体刻意只用**系统字体**（`Segoe UI` / `Microsoft YaHei` / `PingFang SC` / `Georgia` …），
 不引用任何 Web Font —— 这样离线打开不会字体回退、也不会发网络请求。
 
-<details>
-<summary><b>想让某一套用不同主题？</b>（点开）</summary>
+### ⚠️ 一个容易踩的坑：表格斑马纹
 
-1. 在 `themes/` 下新建一个 CSS，**首行**写主题名：
+Marp 内置主题用这条规则给偶数行上色：
+
+```css
+div#:$p > svg > foreignObject > section table tr:nth-child(2n) {
+  background-color: var(--bgColor-muted);
+}
+```
+
+它**带 id 选择器、特异性极高**，写 `tbody tr:nth-child(even)` 是**覆盖不掉**的。
+麻烦的是 `--bgColor-muted` 的默认值为 `light-dark(#f6f8fa, #151b23)` ——
+深色主题若不声明 `color-scheme: dark`，它会解析成**浅色值**，
+于是在深色背景上出现一行浅底浅字。
+
+**正确做法是重定义变量，而不是硬拼特异性：**
+
+```css
+section {
+  --bgColor-muted: rgba(255, 255, 255, 0.03);   /* 深色主题的斑马纹 */
+  color-scheme: dark;                            /* 让 light-dark() 走深色分支 */
+}
+```
+
+5 套主题都已处理（`paper` 设成 `transparent`，因为 booktabs 风格不需要斑马纹）。
+
+<details>
+<summary><b>想加一套全新主题？</b>（点开）</summary>
+
+1. 复制任意一个主题文件，把**首行**改成你的主题名：
    ```css
    /* @theme my-theme */
    @import 'default';
    ```
 2. 在 `marp.config.js` 的 `themeSet` 数组里登记它：
    ```js
-   themeSet: ['themes/copilot.css', 'themes/my-theme.css'],
+   themeSet: ['themes/copilot.css', 'themes/paper.css', /* … */ 'themes/my-theme.css'],
    ```
 3. 在该套 `deck.md` 的 front-matter 里写：
    ```yaml
    theme: my-theme
    ```
+4. 建议保留原有组件类名（`.timeline` / `.bars` / …），这样内容可以直接复用。
 
 </details>
 
@@ -376,7 +440,7 @@ section {
 
 ## 图表组件
 
-`themes/copilot.css` 内置一套数据展示组件，全部是**纯 HTML + CSS**，
+5 套主题都内置同一套数据展示组件，全部是**纯 HTML + CSS**，
 不依赖任何外部图表库 —— 所以导出的 HTML 天然离线、体积小、不会因为 CDN 挂掉而变空白。
 
 > ⚠️ **在 HTML 块内请使用 HTML 标签**（`<b>` `<em>` `<code>`），
@@ -430,7 +494,8 @@ section {
 </div>
 ```
 
-> 📖 想直接抄？打开 `templates/deck.md`，里面每个组件都有可运行的实例。
+> 📖 想直接抄？打开 `templates/主题预览.md` —— 每个组件都有可运行的实例，
+> 而且同一份内容在 5 套主题下都能渲染，方便逐套对照。
 
 ---
 
@@ -673,7 +738,7 @@ super({ ...opts, emoji: { unicode: 'native' } });
 | `scripts/inline-assets.mjs` | 构建后处理：把 HTML 里引用的本地资源转成 data URI |
 | `marp-engine.js` | 自定义引擎，唯一作用是把 emoji 改成原生渲染 |
 | `marp.config.js` | 主题注册、`allowLocalFiles`、`html: true`、PDF 书签 |
-| `themes/copilot.css` | 主题变量 + 全部图表组件 |
+| `themes/*.css` | 5 套主题：变量区 + 全部图表组件（类名完全一致） |
 
 ---
 

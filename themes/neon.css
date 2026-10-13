@@ -1,0 +1,404 @@
+/* @theme neon */
+
+@import 'default';
+
+/* ============================================================
+   主题 neon · 暗色终端
+   ------------------------------------------------------------
+   近黑底 + 霓虹青/紫 + 等宽字体 + 微光边框。
+   封面用纯 CSS 网格与径向光晕（无图片，依然完全离线）。
+
+   适合：技术分享、开源项目介绍、极客风格
+   注意：深色主题在强光环境下投影对比度偏低，建议适度调暗室内光线
+   ============================================================ */
+
+section {
+  --accent: #22d3ee;
+  --accent-2: #a78bfa;
+  --accent-soft: rgba(34, 211, 238, 0.1);
+  --accent-ink: #67e8f9;
+  --ink: #e6edf3;
+  --muted: #8b98a9;
+  --line: #263041;
+  --surface: #131a26;
+
+  /* 声明为深色配色方案，内置主题里的 light-dark() 才会取深色分支 */
+  color-scheme: dark;
+
+  /* 表格斑马纹由内置主题的 var(--bgColor-muted) 控制，其选择器带 id，
+     特异性极高，普通选择器覆盖不了 —— 只能重定义变量。
+     这里显式给一个极淡的白色叠加，深色底上才不会有亮色行。 */
+  --bgColor-muted: rgba(255, 255, 255, 0.03);
+
+  width: 1280px;
+  height: 720px;
+  padding: 72px 80px 80px;
+
+  background: #0b0e14;
+  color: var(--ink);
+
+  font-family: "Segoe UI", system-ui, "Microsoft YaHei", "PingFang SC",
+    sans-serif;
+  font-size: 27px;
+  line-height: 1.6;
+}
+
+/* ---------- 标题：等宽字体 + 发光强调线 ---------- */
+h1, h2, h3, h4 {
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 1.28;
+  margin: 0 0 0.5em;
+  font-family: "Cascadia Code", "JetBrains Mono", Consolas, "Microsoft YaHei",
+    monospace;
+  letter-spacing: -0.3px;
+}
+h1 { font-size: 50px; }
+h2 { font-size: 38px; }
+h3 { font-size: 29px; }
+h4 { font-size: 24px; color: var(--accent); }
+
+h2::after {
+  content: "";
+  display: block;
+  width: 90px;
+  height: 4px;
+  margin-top: 16px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.55);
+}
+
+/* ---------- 正文 ---------- */
+p { margin: 0.4em 0; }
+strong { color: var(--accent); font-weight: 700; }
+em { color: var(--muted); font-style: italic; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(34, 211, 238, 0.45);
+}
+
+ul, ol { margin: 0.4em 0 0.4em 1.15em; padding: 0; }
+li { margin: 0.26em 0; }
+li::marker { color: var(--accent); }
+
+/* ---------- 代码 ---------- */
+code {
+  font-family: "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+  font-size: 0.84em;
+  background: rgba(34, 211, 238, 0.12);
+  color: var(--accent-ink);
+  padding: 0.1em 0.4em;
+  border-radius: 6px;
+  border: 1px solid rgba(34, 211, 238, 0.25);
+}
+
+pre {
+  background: #0f1319;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 12px;
+  padding: 22px 26px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+pre code {
+  background: transparent;
+  border: none;
+  color: #c8f5ff;
+  font-size: 0.78em;
+  line-height: 1.55;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* ---------- 表格 ---------- */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.78em;
+  margin: 0.5em 0;
+}
+th, td { border: 1px solid var(--line); padding: 11px 16px; text-align: left; }
+th {
+  background: rgba(34, 211, 238, 0.09);
+  color: var(--accent-ink);
+  border-color: rgba(34, 211, 238, 0.28);
+}
+/* 偶数行斑马纹的颜色由 --bgColor-muted 决定，见文件开头的变量区 */
+
+/* ---------- 引用 ---------- */
+blockquote {
+  margin: 0.55em 0;
+  padding: 18px 24px;
+  border-left: 3px solid var(--accent-2);
+  background: rgba(167, 139, 250, 0.09);
+  border-radius: 0 12px 12px 0;
+  color: #cbd5e1;
+}
+blockquote p { margin: 0; }
+
+/* ---------- 分栏布局 ---------- */
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px;
+  align-items: start;
+  margin-top: 0.35em;
+}
+.columns > * { min-width: 0; }
+
+/* ---------- 封面页：纯 CSS 网格 + 双向光晕 ---------- */
+section.lead {
+  background-color: #0b0e14;
+  background-image:
+    radial-gradient(900px 520px at 78% 10%, rgba(34, 211, 238, 0.18), transparent 62%),
+    radial-gradient(700px 460px at 10% 94%, rgba(167, 139, 250, 0.16), transparent 62%),
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: auto, auto, 48px 48px, 48px 48px;
+  color: #ffffff;
+  justify-content: center;
+  text-align: center;
+}
+section.lead h1 {
+  color: #ffffff;
+  font-size: 62px;
+  text-shadow: 0 0 34px rgba(34, 211, 238, 0.4);
+}
+section.lead h2 { color: var(--accent); font-size: 26px; font-weight: 500; }
+section.lead h2::after { display: none; }
+section.lead p { color: #b9c6d6; }
+section.lead strong { color: #ffffff; }
+
+/* ---------- 章节分隔页 ---------- */
+section.divider {
+  background-color: #0f1319;
+  background-image: radial-gradient(
+    700px 400px at 50% 50%,
+    rgba(34, 211, 238, 0.12),
+    transparent 70%
+  );
+  color: #ffffff;
+  justify-content: center;
+}
+section.divider h1 { color: #ffffff; }
+section.divider h2 { color: var(--accent); font-weight: 500; }
+section.divider h2::after { display: none; }
+
+/* ---------- 页眉 / 页脚 / 页码 ---------- */
+header {
+  font-size: 17px;
+  color: var(--muted);
+  top: 26px;
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+footer {
+  font-size: 16px;
+  color: var(--muted);
+  bottom: 22px;
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+section::after {
+  right: 44px;
+  bottom: 16px;
+  font-size: 16px;
+  color: var(--accent);
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+
+section.lead header,
+section.lead footer,
+section.lead::after,
+section.divider header,
+section.divider footer { display: none; }
+section.divider::after { color: var(--accent); }
+
+/* ---------- 小工具类 ---------- */
+.badge {
+  display: inline-block;
+  margin: 4px 8px 0 0;
+  padding: 4px 16px;
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.42);
+  color: var(--accent);
+  font-size: 17px;
+  font-weight: 600;
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+.center { text-align: center; }
+.muted { color: var(--muted); }
+
+/* ============================================================
+   数据展示组件（类名与其它主题保持一致）
+   ============================================================ */
+
+/* ---------- 时间轴 ---------- */
+.timeline { margin-top: 6px; }
+.tl-item {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 9px 6px;
+  border-bottom: 1px solid var(--line);
+  font-size: 19px;
+  line-height: 1.4;
+}
+.tl-item:last-child { border-bottom: none; }
+.tl-date {
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+.tl-body { color: #cbd5e1; }
+.tl-body b { color: #ffffff; }
+.tl-item.is-alert {
+  background: rgba(244, 63, 94, 0.1);
+  border-radius: 10px;
+  border-bottom-color: transparent;
+}
+.tl-item.is-alert .tl-date,
+.tl-item.is-alert .tl-body { color: #fb7185; }
+
+/* ---------- 条形图：渐变 + 发光 ---------- */
+.bars { margin-top: 12px; }
+.bar-row { margin: 15px 0; }
+.bar-label {
+  display: block;
+  font-size: 18px;
+  color: var(--muted);
+  margin-bottom: 7px;
+  line-height: 1.4;
+}
+.bar-line { display: flex; align-items: center; gap: 14px; }
+.bar-track {
+  flex: 1;
+  height: 26px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 7px;
+  background: linear-gradient(90deg, #22d3ee, #a78bfa);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.45);
+}
+.bar-fill.is-warn {
+  background: linear-gradient(90deg, #f43f5e, #fb923c);
+  box-shadow: 0 0 16px rgba(244, 63, 94, 0.4);
+}
+.bar-fill.is-mute {
+  background: linear-gradient(90deg, #475569, #64748b);
+  box-shadow: none;
+}
+.bar-val {
+  width: 116px;
+  text-align: right;
+  font-weight: 700;
+  font-size: 21px;
+  color: #ffffff;
+  white-space: nowrap;
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+.bar-src {
+  margin: 12px 0 0;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ---------- 卡片网格：面板式 ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 14px;
+}
+.cards-2 { grid-template-columns: repeat(2, 1fr); }
+.card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 20px;
+  background: var(--surface);
+}
+.card h4 { margin: 0 0 8px; font-size: 21px; color: var(--accent); }
+.card p { margin: 0; font-size: 17px; line-height: 1.5; color: #cbd5e1; }
+.card .card-note { margin-top: 8px; font-size: 16px; color: var(--muted); }
+
+/* ---------- 左右对比 ---------- */
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 10px;
+}
+.compare > div { border-radius: 12px; padding: 18px 22px; }
+.cmp-a { background: rgba(34, 211, 238, 0.08); border: 1px solid rgba(34, 211, 238, 0.3); }
+.cmp-b { background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.3); }
+.compare h3 { margin: 0 0 10px; font-size: 22px; }
+.compare p { margin: 0.4em 0; font-size: 17px; line-height: 1.5; color: #cbd5e1; }
+
+/* ---------- 统计数字 ---------- */
+.stat {
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  color: var(--accent);
+  font-family: "Cascadia Code", Consolas, monospace;
+  text-shadow: 0 0 26px rgba(34, 211, 238, 0.45);
+}
+.cmp-b .stat {
+  color: #fb7185;
+  text-shadow: 0 0 26px rgba(244, 63, 94, 0.45);
+}
+.stat-unit {
+  margin-left: 6px;
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* ---------- 大字提问 ---------- */
+.big-q {
+  margin: 12px 0 24px;
+  padding: 24px 30px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.42;
+  color: #ffffff;
+  background: linear-gradient(
+    90deg,
+    rgba(34, 211, 238, 0.14),
+    rgba(167, 139, 250, 0.1)
+  );
+  border-left: 6px solid var(--accent);
+  border-radius: 0 16px 16px 0;
+}
+
+/* ---------- 参考文献 ---------- */
+.refs {
+  max-width: 1020px;
+  margin: 22px auto 0;
+  font-size: 16px;
+  line-height: 1.85;
+  text-align: left;
+  color: var(--muted);
+}
+.refs b { color: var(--accent); }
+
+/* ---------- 紧凑版式 ---------- */
+section.compact li { margin: 0.16em 0; }
+section.compact table { font-size: 0.7em; }
+section.compact th,
+section.compact td { padding: 7px 13px; }
+section.compact .bar-src { margin-top: 8px; }
+section.compact h2::after { margin-top: 10px; }

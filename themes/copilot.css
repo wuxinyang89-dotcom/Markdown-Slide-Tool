@@ -16,6 +16,11 @@ section {
   --muted: #6b7a90;
   --line: #dfe6ef;
 
+  /* 表格斑马纹由内置主题的 var(--bgColor-muted) 控制，而它的选择器是
+     div#:$p > svg > foreignObject > section table tr:nth-child(2n)
+     —— 带 id，特异性极高，普通选择器覆盖不了，只能在这里重定义变量。 */
+  --bgColor-muted: #f7f9fc;
+
   width: 1280px;
   height: 720px;
   padding: 64px 72px 72px;
@@ -106,7 +111,7 @@ th, td {
   text-align: left;
 }
 th { background: var(--accent-soft); color: var(--accent-ink); }
-tbody tr:nth-child(even) { background: #f7f9fc; }
+/* 偶数行斑马纹的颜色由 --bgColor-muted 决定，见文件开头的变量区 */
 
 /* ---------- 引用 ---------- */
 blockquote {
