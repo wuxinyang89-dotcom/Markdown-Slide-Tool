@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 270" width="760" height="270" role="img" aria-label="Markdown 经 Marp 导出为 HTML / PDF / PPTX">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9fb3d1"/>
+    </marker>
+    <linearGradient id="srcGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1526"/>
+      <stop offset="100%" stop-color="#17305e"/>
+    </linearGradient>
+    <linearGradient id="outGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2f6fed"/>
+      <stop offset="100%" stop-color="#56ccf2"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .t { font: 700 24px "Segoe UI", "Microsoft YaHei", sans-serif; }
+    .s { font: 400 16px "Segoe UI", "Microsoft YaHei", sans-serif; }
+  </style>
+
+  <!-- 源文件 -->
+  <rect x="4" y="90" width="210" height="92" rx="18" fill="url(#srcGrad)"/>
+  <text class="t" x="109" y="130" fill="#ffffff" text-anchor="middle">Markdown</text>
+  <text class="s" x="109" y="156" fill="#9fc0ff" text-anchor="middle">slides/index.md</text>
+
+  <!-- 箭头 1 -->
+  <line x1="222" y1="136" x2="272" y2="136" stroke="#9fb3d1" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- 引擎 -->
+  <rect x="280" y="90" width="180" height="92" rx="18" fill="#ffffff" stroke="#2f6fed" stroke-width="3"/>
+  <text class="t" x="370" y="130" fill="#0d1526" text-anchor="middle">Marp</text>
+  <text class="s" x="370" y="156" fill="#6b7a90" text-anchor="middle">构建引擎</text>
+
+  <!-- 分支箭头 -->
+  <path d="M 462 136 C 510 136 512 34 556 34" fill="none" stroke="#9fb3d1" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="462" y1="136" x2="556" y2="136" stroke="#9fb3d1" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M 462 136 C 510 136 512 238 556 238" fill="none" stroke="#9fb3d1" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- 产物 -->
+  <rect x="564" y="4" width="190" height="60" rx="16" fill="url(#outGrad)"/>
+  <text class="t" x="659" y="42" fill="#ffffff" text-anchor="middle">HTML</text>
+
+  <rect x="564" y="106" width="190" height="60" rx="16" fill="url(#outGrad)"/>
+  <text class="t" x="659" y="144" fill="#ffffff" text-anchor="middle">PDF</text>
+
+  <rect x="564" y="208" width="190" height="60" rx="16" fill="url(#outGrad)"/>
+  <text class="t" x="659" y="246" fill="#ffffff" text-anchor="middle">PPTX</text>
+</svg>
+

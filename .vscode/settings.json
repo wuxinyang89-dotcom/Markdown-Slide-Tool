@@ -1,0 +1,9 @@
+{
+  "markdown.marp.enableHtml": true,
+  "markdown.marp.themes": ["./themes/copilot.css"],
+  "markdown.marp.exportType": "pdf",
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.tabSize": 2
+  }
+}

@@ -1,0 +1,5 @@
+# 这个文件只为让 git 保留空的 decks/ 目录。
+# 你的每一套演示都放在 decks/<日期-主题>/ 下，默认已被 .gitignore 忽略。
+#
+# This file only exists so that git keeps the otherwise-empty decks/ folder.
+# Each deck lives in decks/<date-topic>/ and is git-ignored by default.

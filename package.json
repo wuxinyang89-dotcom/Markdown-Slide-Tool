@@ -1,0 +1,21 @@
+{
+  "name": "markdown-ppt",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Markdown-driven presentation deck (Marp) with HTML / PDF / PPTX export",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs all",
+    "build:html": "node scripts/build.mjs html",
+    "build:pdf": "node scripts/build.mjs pdf",
+    "build:pptx": "node scripts/build.mjs pptx",
+    "list": "node scripts/build.mjs list",
+    "clean": "node scripts/build.mjs clean",
+    "preview": "node scripts/build.mjs preview"
+  },
+  "devDependencies": {
+    "@marp-team/marp-cli": "^4.0.0"
+  }
+}

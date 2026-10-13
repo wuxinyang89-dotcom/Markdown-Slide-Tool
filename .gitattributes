@@ -1,0 +1,48 @@
+# ============================================================================
+#  Line-ending policy
+# ----------------------------------------------------------------------------
+#  Why this file exists: this repo carries scripts for three platforms, and
+#  git's default behaviour rewrites line endings on checkout. That would break
+#  the shebang of the shell scripts:
+#
+#     bash: ./build.sh: /usr/bin/env: bad interpreter: No such file or directory
+#     bash: ./build.sh: $'\r': command not found
+#
+#  ...because a CR before the line feed is not whitespace to bash, it is part
+#  of the token. So: shell scripts MUST stay LF, batch files MUST stay CRLF.
+# ============================================================================
+
+# Normalise on commit; files are stored with LF in the repository.
+* text=auto
+
+# Shell scripts must be LF everywhere, otherwise they refuse to run.
+*.sh      text eol=lf
+*.command text eol=lf
+
+# Windows batch files should be CRLF.
+*.bat     text eol=crlf
+*.cmd     text eol=crlf
+
+# Source / docs / config: LF
+*.mjs     text eol=lf
+*.js      text eol=lf
+*.json    text eol=lf
+*.md      text eol=lf
+*.css     text eol=lf
+*.svg     text eol=lf
+*.yml     text eol=lf
+*.yaml    text eol=lf
+
+# Binary - never touch
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.gif     binary
+*.ico     binary
+*.pdf     binary
+*.pptx    binary
+*.woff    binary
+*.woff2   binary
+
+# Keep generated bundles out of GitHub's language statistics.
+dist/**   linguist-generated=true

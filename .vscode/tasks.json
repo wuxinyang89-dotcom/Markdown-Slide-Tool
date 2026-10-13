@@ -1,0 +1,41 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "PPT: 列出所有演示",
+      "type": "shell",
+      "command": "npm.cmd",
+      "args": ["run", "list"],
+      "problemMatcher": []
+    },
+    {
+      "label": "PPT: 全部演示 → HTML + PDF + PPTX",
+      "type": "shell",
+      "command": "npm.cmd",
+      "args": ["run", "build"],
+      "problemMatcher": [],
+      "group": { "kind": "build", "isDefault": true }
+    },
+    {
+      "label": "PPT: 全部演示 → 仅 HTML",
+      "type": "shell",
+      "command": "npm.cmd",
+      "args": ["run", "build:html"],
+      "problemMatcher": []
+    },
+    {
+      "label": "PPT: 实时预览",
+      "type": "shell",
+      "command": "npm.cmd",
+      "args": ["run", "preview"],
+      "problemMatcher": []
+    },
+    {
+      "label": "PPT: 清空 dist",
+      "type": "shell",
+      "command": "npm.cmd",
+      "args": ["run", "clean"],
+      "problemMatcher": []
+    }
+  ]
+}
